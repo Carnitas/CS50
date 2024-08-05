@@ -2,38 +2,38 @@
 #include <stdio.h>
 
 void print_offset(int space);
-void print_row(int height);
+void print_block(int height);
+void print_space(int height);
 
 const int n;
 
 int main(void)
 {
     int n = get_int("Height? ");
-    // for (int i = 0; i < n; i++)
-    while ( n > 0)
+    for (int i = n ; i > 0 ; i--)
     {
-        for (int j = 0; j < n ; n--)
         {
-            print_offset(n - 1);
+            print_space(i);
+            print_block(n - i);
         }
-        
+       
+       
     }
 }
 
-void print_row(int length)
+void print_block(int height)
 {
-    for (int i = 0; i < length; i++)
+    for (int i = 0; i < (height + 1); i++)
     {
         printf("#");
     }
     printf("\n");
 }
 
-void print_offset(int space)
+void print_space(int height)
 {
-    for (int j = 0; j < space; j++)
+    for ( int i = height; i > 0; i--)
     {
         printf(" ");
     }
-    print_row(space);
 }
