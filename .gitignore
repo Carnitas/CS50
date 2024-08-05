@@ -1,2 +1,7 @@
 # Ignore binaries
 mario
+
+# Ignore venv stuff
+bin/
+lib/
+*.cfg

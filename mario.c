@@ -9,9 +9,9 @@ int main(void)
     int n;
     do
     {
-        n = get_int("Height? ");
+        n = get_int("height? ");
     } 
-    while (n < 1 || n > 7);
+    while (n < 1);
     
     // I want to decay the number first, 3 > 1
     for (int i = n; i > 0; i--)
