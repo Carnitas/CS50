@@ -6,7 +6,13 @@ void print_space(int height);
 
 int main(void)
 {
-    int n = get_int("Height? ");
+    int n;
+    do
+    {
+        n = get_int("Height? ");
+    } 
+    while (n < 1 || n > 7);
+    
     // I want to decay the number first, 3 > 1
     for (int i = n; i > 0; i--)
     {
