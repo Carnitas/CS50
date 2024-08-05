@@ -1,11 +1,8 @@
 #include <cs50.h>
 #include <stdio.h>
 
-void print_offset(int space);
 void print_block(int height);
 void print_space(int height);
-
-const int n;
 
 int main(void)
 {
