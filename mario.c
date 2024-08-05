@@ -16,8 +16,6 @@ int main(void)
             print_space(i);
             print_block(n - i);
         }
-       
-       
     }
 }
 
