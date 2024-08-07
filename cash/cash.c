@@ -24,7 +24,7 @@ int main(void)
     }
     while (n < 1);
 
-    if (n > 25)
+    if (n > 0)
     {
         printf("That's %i quarters\n", get_quarters(n));
         increment_coin(get_quarters(n));
@@ -45,7 +45,7 @@ int main(void)
         }
 
         // Given that every operation would be * or / by 1, we just return the leftover value.
-        if (leftover)
+        if (leftover < 5)
         {
             printf("and %i pennies\n", leftover);
             increment_coin(leftover);
