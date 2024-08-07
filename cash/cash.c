@@ -29,7 +29,7 @@ int main(void)
     // How many multiples of 25 go into the amount?
     // Take the integer and add it to a total named 'coins'
     // Subtract that number * 25 from the total change and return that value
-    if (get_quarters(n) > 0)
+    if (n > 25)
     {
         printf("That's %i quarters\n", get_quarters(n));
         increment_coin(get_quarters(n));
@@ -39,24 +39,20 @@ int main(void)
         printf("and %i dimes\n", get_dimes(leftover));
         increment_coin(get_dimes(leftover));
         increment_leftover(leftover -= (get_dimes(leftover) * 10));
-        printf("total coins: %i\n", count);
-        printf("change remaining: %i\n", leftover);
     }
     if (leftover >= 5)
     {
         printf("and %i nickles\n", get_nickles(leftover));
         increment_coin(get_nickles(leftover));
         increment_leftover(leftover -= (get_nickles(leftover) * 5));
-        printf("leftover: %i\n", leftover);
     }
-    if (leftover > 0)
+    if (leftover)
     {
         printf("and %i pennies\n", get_pennies(leftover));
         increment_coin(get_pennies(leftover));
         increment_leftover(leftover -= (get_pennies(leftover)));
-        
-        printf("change remaining: %i\n", leftover);
     }
+    printf("change remaining: %i\n", leftover);
     printf("total coins: %i\n", count);
     }
 
@@ -74,7 +70,7 @@ void increment_coin(int coin)
 
 void increment_leftover(int change)
 {
-    leftover += change;
+    leftover = change;
 }
 
 int get_quarters(int cents)
