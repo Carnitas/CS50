@@ -4,9 +4,7 @@
 
 // Prototypes for functions
 int get_quarters(int cents);
-int get_quarters_change (int cents);
 int get_dimes(int cents);
-int get_dimes_change(int cents);
 int get_nickles(int cents);
 int get_pennies(int cents);
 
@@ -25,10 +23,7 @@ int main(void)
         n = get_int("Change in cents? ");
     }
     while (n < 1);
-    // printf("That's %i quarters\n", get_quarters(n));
-    // How many multiples of 25 go into the amount?
-    // Take the integer and add it to a total named 'coins'
-    // Subtract that number * 25 from the total change and return that value
+
     if (n > 25)
     {
         printf("That's %i quarters\n", get_quarters(n));
@@ -48,19 +43,12 @@ int main(void)
     }
     if (leftover)
     {
-        printf("and %i pennies\n", get_pennies(leftover));
-        increment_coin(get_pennies(leftover));
-        increment_leftover(leftover -= (get_pennies(leftover)));
+        printf("and %i pennies\n", leftover);
+        increment_coin(leftover);
+        increment_leftover(leftover -= leftover);
     }
-    printf("change remaining: %i\n", leftover);
     printf("total coins: %i\n", count);
     }
-
-
-    // printf("That's %i dimes\n", get_dimes(n));
-    // printf("That's %i nickles\n", get_nickles(n));
-    // printf("That's %i pennies\n", get_pennies(n));
-
 }
 
 void increment_coin(int coin)
@@ -78,19 +66,9 @@ int get_quarters(int cents)
     return cents / 25;
 }
 
-int get_quarters_change (int cents)
-{
-    return cents % 25;
-}
-
 int get_dimes(int cents)
 {
     return cents / 10;
-}
-
-int get_dimes_change(int cents)
-{
-    return cents % 10;
 }
 
 int get_nickles(int cents)
