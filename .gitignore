@@ -1,7 +1,10 @@
 # Ignore binaries
 mario
+cash
+hello
 
 # Ignore venv stuff
 bin/
 lib/
 *.cfg
+*.DS_Store
