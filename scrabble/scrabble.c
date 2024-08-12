@@ -93,11 +93,11 @@ bool string_checker(string input)
 {
     for (size_t i = 0, n = strlen(input); i < n; i++)
     {
-        if (!isalpha(input[i]))
+        if (isalpha(input[i]))
         {
             printf("Only letters are allowed.\n");
-            return true;
+            return false;
         }
     }
-    return false;
+    return true;
 }
