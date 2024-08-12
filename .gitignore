@@ -6,6 +6,7 @@ scrabble
 readability
 
 # Ignore venv stuff
+venv/
 bin/
 lib/
 *.cfg
