@@ -35,11 +35,8 @@ int main(void)
     while (string_checker(input1) && string_checker(input2));
 
     // Let's get a sum for each player's word
-    int input1_sum = 0;
-    int input2_sum = 0;
-
-    input1_sum += summed_value(input1);
-    input2_sum += summed_value(input2);
+    const int input1_sum = summed_value(input1);
+    const int input2_sum = summed_value(input2);
     
     // This is really a print debug statement, but I like it
     printf("Player 1's score: %i\n", input1_sum);
