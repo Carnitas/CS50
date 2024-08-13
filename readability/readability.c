@@ -36,7 +36,6 @@ void print_single_word(string text)
             for (int j = 0; j < i; j++)
             {
                 printf("%c", text[j]);
-                
             }
             break;
         }
