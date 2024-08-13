@@ -7,10 +7,14 @@
 // Prototypes
 void print_single_word(string text);
 
+// Global variables
+int word_count = 0;
+
 int main(void)
 {
     string text = get_string("Enter text: ");
     print_single_word(text);
+    printf("Total words: %i\n", word_count);
 }
 
 
@@ -23,6 +27,7 @@ void print_single_word(string text)
             for (int j = 0; j < i; j++)
             {
                 printf("%c\n", text[i]);
+                word_count++;
                 break;
             }
         }
