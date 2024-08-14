@@ -101,7 +101,7 @@ float count_sentences(string text, float sentence_count)
     {
         // This is dumb but in python I'd say, "If character in array..." but 
         // that doesn't exist in C.
-        if (ispunct(text[i] == '.'))
+        if ((ispunct(text[i] == '.') || (ispunct(text[i] == '!') || (ispunct(text[i] == '?'))
         {
             // print debugging
             // for (int j = starting_index; j < i; j++)
