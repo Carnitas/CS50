@@ -8,31 +8,29 @@
 #include <string.h>
 
 // Prototypes
-void count_single_letters(string text);
-void count_single_words(string text);
-void count_sentences(string text);
-
-
-float letter_count = 0;
-float word_count = 0;
-float sentence_count = 0;
+float count_single_letters(string text, float letter_count);
+float count_single_words(string text, float word_count);
+float count_sentences(string text, float sentence_count);
 
 int main(void)
 {
-    string text = get_string("Enter text: ");
-    count_single_letters(text);
-    count_single_words(text);
-    count_sentences(text);
+    const string text = get_string("Enter text: ");
+    
+    float letter_count = count_single_letters(text, letter_count = 0);
+    float word_count = count_single_words(text, word_count = 0);
+    float sentence_count = count_sentences(text, sentence_count = 0);
+    
+    
     
     // Kept these to track how I printed characters
-    // printf("Total words: %f\n", word_count); 
-    // printf("Total letters: %f\n", letter_count);
+    printf("Total letters: %f\n", letter_count);
+    printf("Total words: %f\n", word_count); 
     // printf("Total sentences: %f\n", sentence_count);
 
-    float L = letter_count/word_count * 100;
-    float S = sentence_count/word_count * 100;
+    const float L = letter_count/word_count * 100;
+    const float S = sentence_count/word_count * 100;
 
-    double index = 0.0588 * L - 0.296 * S - 15.8;
+    const double index = 0.0588 * L - 0.296 * S - 15.8;
 
     if (index < 1)
     {
@@ -49,19 +47,20 @@ int main(void)
 }
 
 // Count alphabetic characters
-void count_single_letters(string text)
+float count_single_letters(string text, float letter_count)
 {
-    for (int i = 0, n = (int) strlen(text); i < n; i++)
+    for (size_t i = 0, n = strlen(text); i < n; i++)
     {
         if (isalpha(text[i]))
         {
             letter_count++;
         }
     }
+    return letter_count;
 }
 
 // Count words
-void count_single_words(string text)
+float count_single_words(string text, float word_count)
 {
     // The index stuff was for printing individual words so that I could count
     // from the space to the next space.
@@ -91,13 +90,12 @@ void count_single_words(string text)
         //     printf("%c", text[i]);
         // }
         word_count++;
-
-
     }
     printf("\n");
+    return word_count;
 }
 
-void count_sentences(string text)
+float count_sentences(string text, float sentence_count)
 {
     // Same as above, promote the starting index to one after a period character.
     // int starting_index = 0;
@@ -118,4 +116,5 @@ void count_sentences(string text)
             sentence_count++;
         }
     }
+    return sentence_count;
 }
