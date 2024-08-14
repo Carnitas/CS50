@@ -33,5 +33,9 @@ void print_single_word(string text)
             starting_index = i + 1;
             word_count++;
         }
+        for (int j = starting_index; j < n; j++)
+        {
+            printf("%c", text[j]);
+        }
     }
 }
