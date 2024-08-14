@@ -99,9 +99,8 @@ float count_sentences(string text, float sentence_count)
     // int starting_index = 0;
     for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
-        // This is dumb but in python I'd say, "If character in array..." but 
-        // that doesn't exist in C.
-        if ((ispunct(text[i] == '.') || (ispunct(text[i] == '!') || (ispunct(text[i] == '?'))
+        // Check the ways a sentence can end in English syntax.
+        if (strchr(".!?", text[i]))
         {
             // print debugging
             // for (int j = starting_index; j < i; j++)
