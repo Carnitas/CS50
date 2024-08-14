@@ -20,11 +20,9 @@ int main(void)
     float word_count = count_single_words(text, word_count = 0);
     float sentence_count = count_sentences(text, sentence_count = 0);
     
-    
-    
     // Kept these to track how I printed characters
-    printf("Total letters: %f\n", letter_count);
-    printf("Total words: %f\n", word_count); 
+    // printf("Total letters: %f\n", letter_count);
+    // printf("Total words: %f\n", word_count); 
     // printf("Total sentences: %f\n", sentence_count);
 
     const float L = letter_count/word_count * 100;
