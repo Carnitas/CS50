@@ -32,7 +32,7 @@ int main(void)
     float L = letter_count/word_count * 100;
     float S = sentence_count/word_count * 100;
 
-    float index = 0.0588 * L - 0.296 * S - 15.8;
+    double index = 0.0588 * L - 0.296 * S - 15.8;
 
     if (index < 1)
     {
@@ -51,7 +51,7 @@ int main(void)
 // Count alphabetic characters
 void count_single_letters(string text)
 {
-    for (int i = 0, n = strlen(text); i < n; i++)
+    for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
         if (isalpha(text[i]))
         {
@@ -67,7 +67,7 @@ void count_single_words(string text)
     // from the space to the next space.
 
     // int starting_index = 0;
-    for (int i = 0, n = strlen(text); i < n; i++)
+    for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
 
         if (isspace(text[i]))
@@ -101,7 +101,7 @@ void count_sentences(string text)
 {
     // Same as above, promote the starting index to one after a period character.
     // int starting_index = 0;
-    for (int i = 0, n = strlen(text); i < n; i++)
+    for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
         // This is dumb but in python I'd say, "If character in array..." but 
         // that doesn't exist in C.
