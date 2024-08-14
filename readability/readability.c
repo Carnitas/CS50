@@ -1,3 +1,6 @@
+// This program takes input, found (here)[https://cs50.harvard.edu/x/2024/psets/2/readability/#how-to-test]
+// and returns an average reading level.
+
 #include <ctype.h>
 #include <cs50.h>
 #include <math.h>
@@ -5,54 +8,71 @@
 #include <string.h>
 
 // Prototypes
-void print_single_letter(string text);
-void print_single_word(string text);
-void print_single_sentece(string text);
+void count_single_letters(string text);
+void count_single_words(string text);
+void count_sentences(string text);
 
-// Global variables
-int letter_count = 0;
-int word_count = 0;
-int sentence_count = 0;
+
+float letter_count = 0;
+float word_count = 0;
+float sentence_count = 0;
 
 int main(void)
 {
     string text = get_string("Enter text: ");
-    print_single_letter(text);
-    // printf("Total letters: %i\n", letter_count);
-    print_single_word(text);
-    // printf("Total words: %i\n", word_count);
-    print_single_sentece(text);
-    // printf("Total sentences: %i\n", sentence_count);
+    count_single_letters(text);
+    count_single_words(text);
+    count_sentences(text);
+    
+    // Kept these to track how I printed characters
+    // printf("Total words: %f\n", word_count); 
+    // printf("Total letters: %f\n", letter_count);
+    // printf("Total sentences: %f\n", sentence_count);
 
-    float L = (float) (letter_count/ word_count) * 100;
-    float S = (float) (sentence_count / word_count) * 100;
+    float L = letter_count/word_count * 100;
+    float S = sentence_count/word_count * 100;
 
     float index = 0.0588 * L - 0.296 * S - 15.8;
-    printf("Grade %i\n", (int) round(index));
 
+    if (index < 1)
+    {
+        printf("Before Grade 1\n");
+    }
+    else if (index > 15)
+    {
+        printf("Grade 16+\n");
+    }
+    else
+    {
+        printf("Grade %.0f\n", round(index));
+    }
 }
 
-
-void print_single_letter(string text)
+// Count alphabetic characters
+void count_single_letters(string text)
 {
     for (int i = 0, n = strlen(text); i < n; i++)
     {
         if (isalpha(text[i]))
         {
-            // printf("%c", text[i]);
             letter_count++;
         }
     }
 }
 
-void print_single_word(string text)
+// Count words
+void count_single_words(string text)
 {
+    // The index stuff was for printing individual words so that I could count
+    // from the space to the next space.
+
     // int starting_index = 0;
     for (int i = 0, n = strlen(text); i < n; i++)
     {
 
         if (isspace(text[i]))
         {
+            // Just for printing out the words. Only really need the count. 
             // for (int j = starting_index; j < i; j++)
             // {
             //     printf("%c", text[j]);
@@ -62,8 +82,10 @@ void print_single_word(string text)
             word_count++;
         }
     }
+    // Since I'm just counting up to spaces, needed to catch the last word.
     if (strrchr(text, '.'))
     {
+        // More print debugging.
         // for (int i = starting_index, n = strlen(text); i < n; i++)
         // {
         //     printf("%c", text[i]);
@@ -73,16 +95,20 @@ void print_single_word(string text)
 
     }
     printf("\n");
-    // word_count++;
 }
 
-void print_single_sentece(string text)
+void count_sentences(string text)
 {
+    // Same as above, promote the starting index to one after a period character.
     // int starting_index = 0;
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (ispunct(text[i]) && (text[i] != ',') && (text[i] != '\'') && (text[i] != ';') && (text[i] != '\"'))
+        // This is dumb but in python I'd say, "If character in array..." but 
+        // that doesn't exist in C.
+        if (ispunct(text[i]) && (text[i] != ',') && (text[i] != '\'') && (text[i] != ';') && 
+            (text[i] != '\"') && (text[i] != '-'))
         {
+            // print debugging
             // for (int j = starting_index; j < i; j++)
             // {
             //     printf("%c", text[j]);
