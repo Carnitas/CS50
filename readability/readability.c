@@ -23,7 +23,7 @@ void print_single_word(string text)
     int starting_index = 0;
     for (int i = 0, n = strlen(text); i < n; i++)
     {
-        if (isblank(text[i]))
+        if (isspace(text[i]))
         {
             for (int j = starting_index; j < i; j++)
             {
@@ -32,10 +32,6 @@ void print_single_word(string text)
             printf("\n");
             starting_index = i + 1;
             word_count++;
-        }
-        for (int j = starting_index; j < n; j++)
-        {
-            printf("%c", text[j]);
         }
     }
 }
