@@ -4,6 +4,7 @@ cash
 hello
 scrabble
 readability
+caesar
 
 # Ignore venv stuff
 venv/
