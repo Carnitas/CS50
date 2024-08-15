@@ -93,10 +93,11 @@ float count_single_words(string text, float word_count)
     return word_count;
 }
 
-float count_sentences(string text, float sentence_count)
+float count_sentences(string text)
 {
     // Same as above, promote the starting index to one after a period character.
     // int starting_index = 0;
+    float sentence_count = 0.0;
     for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
         // Check the ways a sentence can end in English syntax.
