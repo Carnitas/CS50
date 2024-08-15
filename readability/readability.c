@@ -47,7 +47,8 @@ int main(void)
 // Count alphabetic characters
 float count_single_letters(string text, float letter_count)
 {
-    for (size_t i = 0, n = strlen(text); i < n; i++)
+    const size_t num_chars = strlen(text);
+    for (size_t i = 0; i < num_chars; i++)
     {
         if (isalpha(text[i]))
         {
