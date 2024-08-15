@@ -16,9 +16,9 @@ int main(void)
 {
     const string text = get_string("Enter text: ");
     
-    float letter_count = count_single_letters(text, letter_count = 0);
-    float word_count = count_single_words(text, word_count = 0);
-    float sentence_count = count_sentences(text, sentence_count = 0);
+    float letter_count = count_single_letters(text, 0);
+    float word_count = count_single_words(text, 0);
+    float sentence_count = count_sentences(text, 0);
     
     // Kept these to track how I printed characters
     // printf("Total letters: %f\n", letter_count);
@@ -89,7 +89,6 @@ float count_single_words(string text, float word_count)
         // }
         word_count++;
     }
-    printf("\n");
     return word_count;
 }
 
