@@ -37,7 +37,7 @@ int main(void)
     // Let's get a sum for each player's word
     const int input1_sum = summed_value(input1);
     const int input2_sum = summed_value(input2);
-
+    
     // This is really a print debug statement, but I like it
     printf("Player 1's score: %i\n", input1_sum);
     printf("Player 2's score: %i\n", input2_sum);
@@ -78,7 +78,7 @@ int matched_value(char letter)
         // In order to avoid duplicate arrays, make all characters uppercase
         if (letters[i] == toupper(letter))
         {
-            points_per_letter += values[i];
+            points_per_letter += values[i];   
             break;
         }
     }
