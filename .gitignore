@@ -1,7 +1,9 @@
 # Ignore binaries
-build-*
-build
-compile_commands.json
+mario
+cash
+hello
+scrabble
+readability
 
 # Ignore venv stuff
 venv/
