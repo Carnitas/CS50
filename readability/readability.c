@@ -10,19 +10,19 @@
 // Prototypes
 float count_single_letters(string text, float letter_count);
 float count_single_words(string text, float word_count);
-float count_sentences(string text, float sentence_count);
+float count_sentences(string text);
 
 int main(void)
 {
     const string text = get_string("Enter text: ");
-    
+
     float letter_count = count_single_letters(text, 0);
     float word_count = count_single_words(text, 0);
-    float sentence_count = count_sentences(text, 0);
-    
+    float sentence_count = count_sentences(text);
+
     // Kept these to track how I printed characters
     // printf("Total letters: %f\n", letter_count);
-    // printf("Total words: %f\n", word_count); 
+    // printf("Total words: %f\n", word_count);
     // printf("Total sentences: %f\n", sentence_count);
 
     const float L = letter_count/word_count * 100;
@@ -70,7 +70,7 @@ float count_single_words(string text, float word_count)
 
         if (isspace(text[i]))
         {
-            // Just for printing out the words. Only really need the count. 
+            // Just for printing out the words. Only really need the count.
             // for (int j = starting_index; j < i; j++)
             // {
             //     printf("%c", text[j]);
