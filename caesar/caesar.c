@@ -5,10 +5,9 @@
 #include <string.h>
 
 // Prototypes
-
+void cipher_text_rotation(string plaintext);
 int compute_rotation_value(int key_value);
 bool only_digits(string);
-int cipher_text_output(int key_value, int rotation);
 
 int main(int argc, string argv[])
 {
@@ -16,20 +15,21 @@ int main(int argc, string argv[])
     if (argc != 2)
     {
         printf("Usage: ./caesar [number]\n");
+        return 1;
     }
 
-
     const int key_value = atoi(argv[1]);
-    const int rotation = compute_rotation_value(key_value);
-    // const int cipher_text_value = cipher_text_output(key_value, rotation);
+    const int rotation_value = compute_rotation_value(key_value);
     if (only_digits(key))
     {
         printf("Integer from key: %i\n", key_value);
-        printf("Rotation value: %i\n", rotation);
-        // printf("Rotation value: %i", cipher_text_value);
-        
+        printf("Rotation value: %i\n", rotation_value);
     }
-    
+
+    const string plaintext = get_string("plaintext:  ");
+
+    printf("ciphertext: ");
+    cipher_text_rotation(plaintext);
 }
 
 // Required by the problem set
@@ -53,20 +53,24 @@ int compute_rotation_value(int key_value)
     return rotation_value;
 }
 
-// int cipher_text_output(int key_value, int rotation)
-// {
-//     int cipher_text = 0;
-//     const size_t n = strlen(key);
-//     for (size_t i = 0; i < n; i++)
-//     {
-//         if (rotation < 26)
-//         {
-//             printf("Cipher key: %i", cipher_text);
-//         }
-//         else
-//         {
-//             cipher_text = rotation % 26;
-//             printf("Cipher value: %i", cipher_text);
-//         }
-//     }
-// }
+void cipher_text_rotation(string plaintext)
+{
+    const size_t n = strlen(plaintext);
+    int c = 0;
+    for (size_t i = 0; i < n; i++)
+    {
+        c = (plaintext[i] - 0);
+        int rotate_ciphertext = (c + 26);
+        if (rotate_ciphertext > 90)
+        {
+            int loop_around = (rotate_ciphertext % 26) + 64;
+            printf("%c", loop_around);
+            
+        }
+        else
+        {
+            printf("%c", c + rotate_ciphertext);   
+        } 
+    }
+    printf("\n");
+}
