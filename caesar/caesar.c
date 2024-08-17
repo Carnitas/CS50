@@ -60,16 +60,16 @@ void cipher_text_rotation(string plaintext)
     for (size_t i = 0; i < n; i++)
     {
         c = (plaintext[i] - 0);
-        int rotate_ciphertext = (c + 26);
-        if (rotate_ciphertext > 90)
+        // int rotate_ciphertext = (c + 26);
+        if (c > 90)
         {
-            int loop_around = (rotate_ciphertext % 26) + 64;
+            int loop_around = (c % 26) + 64;
             printf("%c", loop_around);
             
         }
         else
         {
-            printf("%c", c + rotate_ciphertext);   
+            printf("%c", c);   
         } 
     }
     printf("\n");
