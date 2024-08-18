@@ -8,17 +8,17 @@
 #include <string.h>
 
 // Prototypes
-float count_single_letters(string text, float letter_count);
-float count_single_words(string text, float word_count);
-float count_sentences(string text, float sentence_count);
+float count_single_letters(string text);
+float count_single_words(string text);
+float count_sentences(string text);
 
 int main(void)
 {
     const string text = get_string("Enter text: ");
     
-    float letter_count = count_single_letters(text, 0);
-    float word_count = count_single_words(text, 0);
-    float sentence_count = count_sentences(text, 0);
+    float letter_count = count_single_letters(text);
+    float word_count = count_single_words(text);
+    float sentence_count = count_sentences(text);
     
     // Kept these to track how I printed characters
     // printf("Total letters: %f\n", letter_count);
@@ -45,9 +45,10 @@ int main(void)
 }
 
 // Count alphabetic characters
-float count_single_letters(string text, float letter_count)
+float count_single_letters(string text)
 {
     const size_t num_chars = strlen(text);
+    float letter_count = 0.0;
     for (size_t i = 0; i < num_chars; i++)
     {
         if (isalpha(text[i]))
@@ -59,12 +60,13 @@ float count_single_letters(string text, float letter_count)
 }
 
 // Count words
-float count_single_words(string text, float word_count)
+float count_single_words(string text)
 {
     // The index stuff was for printing individual words so that I could count
     // from the space to the next space.
 
     // int starting_index = 0;
+    float word_count = 0.0;
     for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
 
