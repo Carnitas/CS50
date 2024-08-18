@@ -47,10 +47,9 @@ bool only_digits(string key)
 void cipher_text_rotation(string plaintext, int rotation_value)
 {
     const size_t n = strlen(plaintext);
-    char c = 0;
     for (size_t i = 0; i < n; i++)
     {
-        c = (plaintext[i] - 0);
+        const char c = (plaintext[i] - 0);
         if ('A' <= c && c <= 'Z')
         {
             upper_case_rotation(c, rotation_value);
@@ -70,8 +69,8 @@ void cipher_text_rotation(string plaintext, int rotation_value)
 // Here's what happens for uppercase
 void upper_case_rotation(int c, int rotation_value)
 {
-    int upper_cipher = c + rotation_value;
-    if (upper_cipher > 90)
+    const int upper_cipher = c + rotation_value;
+    if (upper_cipher > 'Z')
     {
         printf("%c", (upper_cipher - 26));
     }
@@ -84,8 +83,8 @@ void upper_case_rotation(int c, int rotation_value)
 // Here's what happens for lowercase
 void lower_case_rotation(int c, int rotation_value)
 {
-    int lower_cipher = c + rotation_value;
-    if (lower_cipher > 122)
+    const int lower_cipher = c + rotation_value;
+    if (lower_cipher > 'z')
     {
         printf("%c", (lower_cipher - 26));
     }
