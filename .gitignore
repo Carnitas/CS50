@@ -1,10 +1,10 @@
 # Ignore binaries
-mario
-cash
-hello
-scrabble
-readability
-caesar
+mario/mario
+cash/cash
+hello/hello
+scrabble/scrabble
+readability/readability
+caesar/caesar
 
 # Ignore venv stuff
 venv/
