@@ -1,26 +1,20 @@
 #include <cs50.h>
 #include <ctype.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 // Prototypes
 void cipher_text_rotation(string plaintext, int rotation_value);
-// int compute_rotation_value(int key_value);
 void lower_case_rotation(int c, int key_value);
 bool only_digits(string);
 void upper_case_rotation(int c, int key_value);
 
 int main(int argc, string argv[])
 {
+    // Confine inputs to a single real number
     const string key = argv[1];
-    if (argc != 2)
-    {
-        printf("Usage: ./caesar key\n");
-        return 1;
-    }
-
-    if (!only_digits(key))
+    if (argc != 2 || (!only_digits(key)))
     {
         printf("Usage: ./caesar key\n");
         return 1;
@@ -29,8 +23,6 @@ int main(int argc, string argv[])
     const int key_value = atoi(argv[1]);
     const int rotation_value = key_value % 26;
     const string plaintext = get_string("plaintext:  ");
-
-
 
     printf("ciphertext: ");
     cipher_text_rotation(plaintext, rotation_value);
@@ -50,14 +42,8 @@ bool only_digits(string key)
     return true;
 }
 
-// I might be able to fold this in somewhere
-// int compute_rotation_value(int key_value)
-// {
-//     const int rotation_value = key_value % 26;
-//     return rotation_value;
-// }
-
 // Here's where we determine which rotation to apply based on character number
+// in the standard ASCII chart.
 void cipher_text_rotation(string plaintext, int rotation_value)
 {
     const size_t n = strlen(plaintext);
@@ -69,7 +55,7 @@ void cipher_text_rotation(string plaintext, int rotation_value)
         {
             upper_case_rotation(c, rotation_value);
         }
-        else if ( 97 <= c && c <= 122)
+        else if (97 <= c && c <= 122)
         {
             lower_case_rotation(c, rotation_value);
         }
@@ -87,7 +73,7 @@ void upper_case_rotation(int c, int rotation_value)
     int upper_cipher = c + rotation_value;
     if (upper_cipher > 90)
     {
-        printf("%c", (upper_cipher - 90) + 64);
+        printf("%c", (upper_cipher - 26));
     }
     else
     {
@@ -101,7 +87,7 @@ void lower_case_rotation(int c, int rotation_value)
     int lower_cipher = c + rotation_value;
     if (lower_cipher > 122)
     {
-        printf("%c", (lower_cipher - 122) + 96);
+        printf("%c", (lower_cipher - 26));
     }
     else
     {
