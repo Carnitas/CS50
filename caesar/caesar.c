@@ -47,15 +47,15 @@ bool only_digits(string key)
 void cipher_text_rotation(string plaintext, int rotation_value)
 {
     const size_t n = strlen(plaintext);
-    int c = 0;
+    char c = 0;
     for (size_t i = 0; i < n; i++)
     {
         c = (plaintext[i] - 0);
-        if (65 <= c && c <= 90)
+        if ('A' <= c && c <= 'Z')
         {
             upper_case_rotation(c, rotation_value);
         }
-        else if (97 <= c && c <= 122)
+        else if ('a' <= c && c <= 'z')
         {
             lower_case_rotation(c, rotation_value);
         }
