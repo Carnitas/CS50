@@ -8,3 +8,8 @@
 **Git**: https://video.cs50.io/cspx7YSvp5Q
 
 **Scratch**: https://scratch.mit.edu
+
+## Repository setup
+
+To setup, install poetry, clang, gcc, ninja, and CMake. Then run `make setup`.
+To build, run `make build`. To auto-format, etc, run `make quality`.
