@@ -15,7 +15,8 @@ typedef struct
 } candidate;
 
 // Array of candidates
-candidate candidates[MAX];
+// Set a magic number to bypass an error. '9' should be MAX.
+candidate candidates[9];
 
 // Number of candidates
 int candidate_count;

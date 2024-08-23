@@ -8,7 +8,7 @@ setup:
 	CC=gcc-14 CXX=g++-12 cmake -G Ninja -B build-gcc -S .
 
 	mkdir build-clang
-	CC=clang-18 CXX=clang++-18 cmake -G Ninja -B build-clang -S .
+	CC=clang CXX=clang++ cmake -G Ninja -B build-clang -S .
 
 	ln -s build-gcc build
 	ln -s build-clang/compile_commands.json
