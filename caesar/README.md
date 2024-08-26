@@ -1,6 +1,7 @@
 ## Caesar
+
 ```
-➜  CS50 git:(caesar) ✗ caesar/caesar 60    
+➜  CS50 git:(caesar) ✗ caesar/caesar 60
 plaintext:  CAT
 ciphertext: KIB
 ➜  CS50 git:(caesar) ✗ cd caesar; cschecker cs50/problems/2024/x/caesar; cd -

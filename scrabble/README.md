@@ -1,4 +1,5 @@
 ## Scrabble
+
 ```
 ➜  CS50 git:(caesar) ✗ make scrabble/scrabble; scrabble/scrabble
 cc -Wall -Wextra -Werror -Wpedantic -Wshadow -Wconversion -std=c11 -lcs50    scrabble/scrabble.c   -o scrabble/scrabble

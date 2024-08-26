@@ -15,11 +15,11 @@ float count_sentences(string text);
 int main(void)
 {
     const string text = get_string("Enter text: ");
-    
+
     float letter_count = count_single_letters(text);
     float word_count = count_single_words(text);
     float sentence_count = count_sentences(text);
-    
+
     // Kept these to track how I printed characters
     // printf("Total letters: %f\n", letter_count);
     // printf("Total words: %f\n", word_count);
