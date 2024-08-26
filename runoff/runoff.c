@@ -138,6 +138,9 @@ bool vote(int voter, int rank, string name)
     return false;
 }
 
+// The assignment only allowed changes to the supporting functions.
+// Having to use `if (!candidates[i].eliminated)` in every function feels bad.
+
 // Tabulate votes for non-eliminated candidates
 void tabulate(void)
 {
@@ -158,6 +161,7 @@ void tabulate(void)
 // Print the winner of the election, if there is one
 bool print_winner(void)
 {
+    // ITM, how could I do this differently?
     candidate winner = {.name="", .votes=0};
     int total_votes = 0;
 
@@ -183,6 +187,7 @@ bool print_winner(void)
 // Return the minimum number of votes any remaining candidate has
 int find_min(void)
 {
+    // ITM, arbitrarily large value.
     int min_votes = INT_MAX;
     for (int i = 0; i < candidate_count; i ++)
     {
