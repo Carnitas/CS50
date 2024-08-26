@@ -1,9 +1,14 @@
 ## Plurality
-This one has some artificial constraints, described [here](https://cs50.harvard.edu/x/2024/psets/3/plurality/).
 
-We can only manage the `vote` function and the `print_winner` function, everything else has to stay the same.
+This one has some artificial constraints, described
+[here](https://cs50.harvard.edu/x/2024/psets/3/plurality/).
 
-The function takes *n* names, a number of voters, then returns the candidate(s) with the most votes.
+We can only manage the `vote` function and the `print_winner` function,
+everything else has to stay the same.
+
+The function takes *n* names, a number of voters, then returns the candidate(s)
+with the most votes.
+
 ```
 ➜  CS50 git:(plurality) ✗ cd plurality; cschecker cs50/problems/2024/x/plurality; cd -
 Connecting.........
