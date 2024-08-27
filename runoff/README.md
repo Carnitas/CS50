@@ -5,9 +5,8 @@ We could only change the supporting functions in this one, everything after line
 problem than divining in and trying to solve for the tests, function by
 function.
 
-Spoiler, because it's dumb:
-
-> ! The print winner function requires a newline character when printing a name.
+Spoiler, because it's a dumb timesink: The `print_winner()` function requires a
+`\n` character when you print the winner's name in order to pass the tests.
 
 ```
 ➜  CS50 git:(runoff) ✗ cd runoff; cschecker cs50/problems/2024/x/runoff; cd -
