@@ -148,26 +148,30 @@ void tabulate(void)
     {
         for (int j = 0; j < voter_count; j++)
         {
-            if (!candidates[preferences[i][j]].eliminated)
+            if (candidates[preferences[i][j]].eliminated)
             {
-                candidates[preferences[i][j]].votes++;
-                break;
+                continue;
             }
+            candidates[preferences[i][j]].votes++;
+            break;
         }
     }
-    return;
 }
 
 // Print the winner of the election, if there is one
 bool print_winner(void)
 {
     // ITM, how could I do this differently?
-    candidate winner = {.name="", .votes=0};
+    candidate winner = {.name = "", .votes = 0};
     int total_votes = 0;
 
     for (int i = 0; i < candidate_count; i++)
     {
-        if (!candidates[i].eliminated)
+        if (candidates[i].eliminated)
+        {
+            continue;
+        }
+        else
         {
             total_votes += candidates[i].votes;
         }
@@ -189,14 +193,15 @@ int find_min(void)
 {
     // ITM, arbitrarily large value.
     int min_votes = INT_MAX;
-    for (int i = 0; i < candidate_count; i ++)
+    for (int i = 0; i < candidate_count; i++)
     {
-        if (!candidates[i].eliminated)
+        if (candidates[i].eliminated)
         {
-            if (candidates[i].votes < min_votes)
-            {
-                min_votes = candidates[i].votes;
-            }
+            continue;
+        }
+        else if (candidates[i].votes < min_votes)
+        {
+            min_votes = candidates[i].votes;
         }
     }
     return min_votes;
@@ -207,12 +212,13 @@ bool is_tie(int min)
 {
     for (int i = 0; i < candidate_count; i++)
     {
-        if (!candidates[i].eliminated)
+        if (candidates[i].eliminated)
         {
-            if (candidates[i].votes != min)
-            {
-                return false;
-            }
+            continue;
+        }
+        if (candidates[i].votes != min)
+        {
+            return false;
         }
     }
     return true;
@@ -228,5 +234,4 @@ void eliminate(int min)
             candidates[i].eliminated = true;
         }
     }
-    return;
 }
