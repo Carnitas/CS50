@@ -9,6 +9,7 @@ bin/
 lib/
 *.cfg
 *.DS_Store
+*.dSYM*
 
 # Ignore image files for filter branch
 *.bmp
