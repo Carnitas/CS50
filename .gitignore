@@ -9,3 +9,6 @@ bin/
 lib/
 *.cfg
 *.DS_Store
+
+# Ignore image files for filter branch
+*.bmp
