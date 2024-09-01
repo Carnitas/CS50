@@ -9,12 +9,10 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            image[i][j].rgbtBlue = 80;
-            image[i][j].rgbtGreen = 80;
-            image[i][j].rgbtRed = 80;
+            // Gray is what happens when all rgb values match.
+            image[i][j].rgbtBlue = image[i][j].rgbtGreen = image[i][j].rgbtRed;
         }
     }
-
 }
 
 // Convert image to sepia
