@@ -40,22 +40,12 @@ int main(int argc, char *argv[])
     fwrite(header, HEADER_SIZE, 1, output);
 
     // TODO: Read samples from input file and write updated data to output file
-    typedef uint16_t WAV_BYTE;
-    WAV_BYTE wb;
+    int16_t wb;
 
-
-    while (fread((&wb), sizeof(uint16_t), 1, input) != 0)
+    while (fread((&wb), sizeof(int16_t), 1, input) != 0)
     {
         wb *= factor;
-        if (floor(wb) == ceil(wb))
-        {
-            fwrite(&wb, sizeof(uint16_t), 1, output);
-        }
-        else
-        {
-            fwrite(&wb, sizeof(uint16_t), 1, output);
-        }
-
+        fwrite(&wb, sizeof(int16_t), 1, output);
     }
 
     // Close files
