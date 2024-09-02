@@ -6,23 +6,27 @@
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
-    int gray_value = 0;
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
-            // Gather rgb values and average them
+            // Create a ptr to access the components of RGBTRIPLE as an array
+            BYTE* ptr = (BYTE*)&image[i][j];
+
+            // Gather the values in each BYTE and sum them
             int rgbt_sum = 0;
+            for (int k = 0; k < sizeof(RGBTRIPLE); k++)
+            {
+                rgbt_sum += ptr[k];
+            }
 
-            rgbt_sum += image[i][j].rgbtRed;
-            rgbt_sum += image[i][j].rgbtGreen;
-            rgbt_sum += image[i][j].rgbtBlue;
-
+            // Average those values and reassign the single value to each BYTE of that pixel
             uint8_t rgbt_avg = (rgbt_sum + 1)/ 3;
 
-            image[i][j].rgbtRed = rgbt_avg;
-            image[i][j].rgbtGreen = rgbt_avg;
-            image[i][j].rgbtBlue = rgbt_avg;
+            for (int k = 0; k < sizeof(RGBTRIPLE); k++)
+            {
+                ptr[k] = rgbt_avg;
+            }
         }
     }
 }
