@@ -55,9 +55,9 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
             tg = (uint8_t) (0.168 * ptr[0]) + (0.686 * ptr[1]) + (0.349 * ptr[2]);
             tr = (uint8_t) (0.189 * ptr[0]) + (0.769 * ptr[1]) + (0.393 * ptr[2]);
 
-            ptr[0] = tb;
-            ptr[1] = tg;
-            ptr[2] = tr;
+            ptr[0] = roundf(tb);
+            ptr[1] = roundf(tg);
+            ptr[2] = roundf(tr);
         }
     }
 }
