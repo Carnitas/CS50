@@ -33,17 +33,9 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 }
 
 // Convert image to sepia
-// Sepia conversion formula:
-// sb = 0.131B + 0.534G + 0.272R
-// sg = 0.168B + 0.686G + 0.349R
-// tr = 0.189B + 0.769G + 0.393R
-
 // sepiaBlue = .272 * originalRed + .534 * originalGreen + .131 * originalBlue
 // sepiaGreen = .349 * originalRed + .686 * originalGreen + .168 * originalBlue
 // sepiaRed = .393 * originalRed + .769 * originalGreen + .189 * originalBlue
-
-
-
 void sepia(int height, int width, RGBTRIPLE image[height][width])
 {
     for (int i = 0; i < height; i++)
@@ -75,7 +67,13 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
-    return;
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = width; j > 0; j--)
+        {
+            return;
+        }
+    }
 }
 
 // Blur image
