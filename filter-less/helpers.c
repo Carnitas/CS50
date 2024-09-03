@@ -34,30 +34,40 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 
 // Convert image to sepia
 // Sepia conversion formula:
-// tb = 0.131B + 0.534G + 0.272R
-// tg = 0.168B + 0.686G + 0.349R
+// sb = 0.131B + 0.534G + 0.272R
+// sg = 0.168B + 0.686G + 0.349R
 // tr = 0.189B + 0.769G + 0.393R
+
+// sepiaBlue = .272 * originalRed + .534 * originalGreen + .131 * originalBlue
+// sepiaGreen = .349 * originalRed + .686 * originalGreen + .168 * originalBlue
+// sepiaRed = .393 * originalRed + .769 * originalGreen + .189 * originalBlue
+
+
+
 void sepia(int height, int width, RGBTRIPLE image[height][width])
 {
-    uint8_t tr = 0;
-    uint8_t tg = 0;
-    uint8_t tb = 0;
-
-
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
             // Create a ptr to access the components of RGBTRIPLE as an array
+            // There's a way to do all of this with less repeated code
+            // Let's come back to it.
             BYTE* ptr = (BYTE*)&image[i][j];
 
-            tb = (uint8_t) (0.131 * ptr[0]) + (0.534 * ptr[1]) + (0.272 * ptr[2]);
-            tg = (uint8_t) (0.168 * ptr[0]) + (0.686 * ptr[1]) + (0.349 * ptr[2]);
-            tr = (uint8_t) (0.189 * ptr[0]) + (0.769 * ptr[1]) + (0.393 * ptr[2]);
+            // sb: sepia blue, sg: sepia green, sr: sepia red
+            float sb = (0.131 * ptr[0]) + (0.534 * ptr[1]) + (0.272 * ptr[2]);
+            float sg = (0.168 * ptr[0]) + (0.686 * ptr[1]) + (0.349 * ptr[2]);
+            float sr = (0.189 * ptr[0]) + (0.769 * ptr[1]) + (0.393 * ptr[2]);
 
-            ptr[0] = roundf(tb);
-            ptr[1] = roundf(tg);
-            ptr[2] = roundf(tr);
+            // lb: leveled blue, lg: leveled green, lr: leveled red
+            BYTE lb = (sb > 255) ? 255 : (sb < 0) ? 0 : round(sb);
+            BYTE lg = (sg > 255) ? 255 : (sg < 0) ? 0 : round(sg);
+            BYTE lr = (sr > 255) ? 255 : (sr < 0) ? 0 : round(sr);
+
+            ptr[0] = lb;
+            ptr[1] = lg;
+            ptr[2] = lr;
         }
     }
 }
