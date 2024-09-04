@@ -130,7 +130,8 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             int rgbt_sum_surrounding_red = 0;
             int valid_pixel_counter = 0;
 
-            // Gather the values in each BYTE and sum them
+            // For any pixel within one square of the pixel
+            // average its byte values
             for (int di = -1; di <= 1; di++)
             {
                 for (int dj = -1; dj <= 1; dj++)
@@ -148,13 +149,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
-            image[i][j].rgbtBlue = (rgbt_sum_surrounding_blue + 1)/ valid_pixel_counter;
-            image[i][j].rgbtGreen = (rgbt_sum_surrounding_green + 1)/ valid_pixel_counter;
-            image[i][j].rgbtRed = (rgbt_sum_surrounding_red + 1)/ valid_pixel_counter;
-            // rgbt_sum_surrounding_blue = 0;
-            // rgbt_sum_surrounding_green = 0;
-            // rgbt_sum_surrounding_red = 0;
-            // valid_pixel_counter = 0;
+            image[i][j].rgbtBlue = rgbt_sum_surrounding_blue / valid_pixel_counter;
+            image[i][j].rgbtGreen = rgbt_sum_surrounding_green / valid_pixel_counter;
+            image[i][j].rgbtRed = rgbt_sum_surrounding_red / valid_pixel_counter;
         }
     }
 }
