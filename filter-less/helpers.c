@@ -118,17 +118,23 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+    RGBTRIPLE copy[height][width];
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
-            // Create a ptr to access the components of RGBTRIPLE as an array
-            BYTE* ptr = (BYTE*)&image[i][j];
-            RGBTRIPLE *copy = &image[i][j];
+            copy[i][j] = image[i][j];
+        }
+    }
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
             int rgbt_sum_surrounding_blue = 0;
             int rgbt_sum_surrounding_green = 0;
             int rgbt_sum_surrounding_red = 0;
-            int valid_pixel_counter = 0;
+            float valid_pixel_counter = 0;
 
             // For any pixel within one square of the pixel
             // average its byte values
@@ -141,17 +147,17 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     int valid_j = (j + dj >= 0 && j + dj < width) ? j + dj : -1;
                     if (valid_i != -1 && valid_j != -1)
                     {
-                        rgbt_sum_surrounding_blue  += image[valid_i][valid_j].rgbtBlue;
-                        rgbt_sum_surrounding_green += image[valid_i][valid_j].rgbtGreen;
-                        rgbt_sum_surrounding_red   += image[valid_i][valid_j].rgbtRed;
+                        rgbt_sum_surrounding_blue  += copy[valid_i][valid_j].rgbtBlue;
+                        rgbt_sum_surrounding_green += copy[valid_i][valid_j].rgbtGreen;
+                        rgbt_sum_surrounding_red   += copy[valid_i][valid_j].rgbtRed;
                         valid_pixel_counter++;
 
                     }
                 }
             }
-            image[i][j].rgbtBlue = rgbt_sum_surrounding_blue / valid_pixel_counter;
-            image[i][j].rgbtGreen = rgbt_sum_surrounding_green / valid_pixel_counter;
-            image[i][j].rgbtRed = rgbt_sum_surrounding_red / valid_pixel_counter;
+            image[i][j].rgbtBlue = round((rgbt_sum_surrounding_blue) / valid_pixel_counter);
+            image[i][j].rgbtGreen = round((rgbt_sum_surrounding_green)/ valid_pixel_counter);
+            image[i][j].rgbtRed = round((rgbt_sum_surrounding_red)/ valid_pixel_counter);
         }
     }
 }
