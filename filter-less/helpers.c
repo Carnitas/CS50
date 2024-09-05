@@ -43,11 +43,6 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            // Create a ptr to access the components of RGBTRIPLE as an array
-            // There's a way to do all of this with less repeated code
-            // Let's come back to it.
-            // On the other hand, ptr[0] sends you back to bmp.h to figure out
-            // what BYTE it references.
             BYTE* ptr = (BYTE*)&image[i][j];
 
             // sb: sepia blue, sg: sepia green, sr: sepia red
@@ -119,6 +114,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE copy[height][width];
+    // Let's make a copy of the image array, allows us to reset copy too.
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -127,6 +123,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
         }
     }
 
+    // For each rgbtriple in the image array, let's average its bytes.
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -155,6 +152,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                     }
                 }
             }
+            // Once we've got the average bytes, let's rebuild the image array with those values
             image[i][j].rgbtBlue = round((rgbt_sum_surrounding_blue) / valid_pixel_counter);
             image[i][j].rgbtGreen = round((rgbt_sum_surrounding_green)/ valid_pixel_counter);
             image[i][j].rgbtRed = round((rgbt_sum_surrounding_red)/ valid_pixel_counter);
