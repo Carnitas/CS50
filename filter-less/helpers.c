@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
+// Prototypes
+uint8_t calculate_grayscale(RGBTRIPLE pixel);
+
 // Convert image to grayscale
 // Gray is what happens when all rgb values are the same on a given pixel
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
@@ -12,23 +15,12 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
         for (int j = 0; j < width; j++)
         {
             // Create a ptr to access the components of RGBTRIPLE as an array
-            BYTE* ptr = (BYTE*)&image[i][j];
+            // BYTE* ptr = (BYTE*)&image[i][j];
 
-            // Gather the values in each BYTE and sum them
-            int rgbt_sum = 0;
-            for (int k = 0; k < sizeof(RGBTRIPLE); k++)
-            {
-                rgbt_sum += ptr[k];
-            }
-
-            // Average those values and reassign the single value to each BYTE of that pixel
-            // +1 to round properly
-            uint8_t rgbt_avg = (rgbt_sum + 1)/ 3;
-
-            for (int k = 0; k < sizeof(RGBTRIPLE); k++)
-            {
-                ptr[k] = rgbt_avg;
-            }
+            uint8_t rgbt_avg = calculate_grayscale(image[i][j]);
+            image[i][j].rgbtBlue = rgbt_avg;
+            image[i][j].rgbtGreen = rgbt_avg;
+            image[i][j].rgbtRed = rgbt_avg;
         }
     }
 }
@@ -67,23 +59,6 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
-    // The below commented code flips the image pixel-by-pixel
-    // because there's no need to flip the image BYTE by BYTE.
-    // However, this approach fails the tests, so let's move on.
-
-    // RGBTRIPLE *tmp_ptr = (RGBTRIPLE*)&image[height][width];
-    // for (int i = 0; i < height; i++)
-    // {
-    //     // We need to stop half way through or we flip
-    //     // the flipped pixels back
-    //     for (int j = 0; j < width/2; j++)
-    //     {
-    //         tmp_ptr = (RGBTRIPLE*)&image[i][j];
-    //         image[i][j - 1] = image[i][width - j - 1];
-    //         image[i][width - j - 1] = *tmp_ptr;
-    //     }
-    // }
-
     BYTE *tmp_byte = (BYTE*)&image[height][width];
     for (int i = 0; i < height; i++)
     {
@@ -158,4 +133,12 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
             image[i][j].rgbtRed = round((rgbt_sum_surrounding_red)/ valid_pixel_counter);
         }
     }
+}
+
+// helper functions
+uint8_t calculate_grayscale(RGBTRIPLE pixel)
+{
+    int rgbt_sum = pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed;
+    // +1 to round properly
+    return (rgbt_sum + 1) / 3;
 }
