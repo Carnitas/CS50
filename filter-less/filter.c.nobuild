@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
     free(image);
 
     // Close files
-    fclose(inptr);
+
     fclose(outptr);
     return 0;
 }
