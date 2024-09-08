@@ -123,19 +123,51 @@ uint8_t calculate_grayscale(RGBTRIPLE pixel)
     return (rgbt_sum + 1) / 3;
 }
 
-// sepiaBlue = .272 * originalRed + .534 * originalGreen + .131 * originalBlue
-// sepiaGreen = .349 * originalRed + .686 * originalGreen + .168 * originalBlue
-// sepiaRed = .393 * originalRed + .769 * originalGreen + .189 * originalBlue
+float clip_color(float color) {
+    if (color > 255) {
+      return 255;
+    } else if (color < 0) {
+      return 0;
+    } else {
+      return color;
+    }
+}
+
+float calculate_sepia_blue(RGBTRIPLE pixel) {
+    static const float BLUE_ADJUST = 0.131;
+    static const float GREEN_ADJUST = 0.534;
+    static const float RED_ADJUST = 0.272;
+    
+    return clip_color((BLUE_ADJUST * pixel.rgbtBlue)
+                      + (GREEN_ADJUST * pixel.rgbtGreen)
+                      + (RED_ADJUST * pixel.rgbtRed);
+}
+
+float calculate_sepia_green(RGBTRIPLE pixel) {
+    static const float BLUE_ADJUST = 0.168;
+    static const float GREEN_ADJUST = 0.686;
+    static const float RED_ADJUST = 0.349;
+    
+    return clip_color((BLUE_ADJUST * pixel.rgbtBlue)
+                      + (GREEN_ADJUST * pixel.rgbtGreen)
+                      + (RED_ADJUST * pixel.rgbtRed);
+}
+
+float calculate_sepia_red(RGBTRIPLE pixel) {
+    static const float BLUE_ADJUST = 0.189;
+    static const float GREEN_ADJUST = 0.769;
+    static const float RED_ADJUST = 0.393;
+    
+    return clip_color((BLUE_ADJUST * pixel.rgbtBlue)
+                      + (GREEN_ADJUST * pixel.rgbtGreen)
+                      + (RED_ADJUST * pixel.rgbtRed);
+}
+
 RGBTRIPLE calculate_sepia(RGBTRIPLE pixel)
 {
-    float sb = (0.131 * pixel.rgbtBlue) + (0.534 * pixel.rgbtGreen) + (0.272 * pixel.rgbtRed);
-    float sg = (0.168 * pixel.rgbtBlue) + (0.686 * pixel.rgbtGreen) + (0.349 * pixel.rgbtRed);
-    float sr = (0.189 * pixel.rgbtBlue) + (0.769 * pixel.rgbtGreen) + (0.393 * pixel.rgbtRed);
-
-    RGBTRIPLE sepia_pixel;
-    sepia_pixel.rgbtBlue = (sb > 255) ? 255 : (sb < 0) ? 0 : round(sb);
-    sepia_pixel.rgbtGreen = (sg > 255) ? 255 : (sg < 0) ? 0 : round(sg);
-    sepia_pixel.rgbtRed = (sr > 255) ? 255 : (sr < 0) ? 0 : round(sr);
-
-    return sepia_pixel;
+    return RGBTRIPLE{
+      .rgbtRed=calculate_sepia_red(pixel),
+      .rgbtGreen=calculate_sepia_green(pixel),
+      .rgbtBlue=calculate_sepia_blue(pixel),
+    };
 }
