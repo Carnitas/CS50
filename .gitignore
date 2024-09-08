@@ -13,3 +13,5 @@ lib/
 
 # Ignore image files for filter branch
 *.bmp
+# Need to move this out of CS50 directory so larger Make works properly but don't want to lose it in repo.
+filter-less/
