@@ -132,41 +132,45 @@ float clip_color(float color) {
     }
 }
 
-float calculate_sepia_blue(RGBTRIPLE pixel) {
+float calculate_sepia_blue(RGBTRIPLE pixel)
+{
     static const float BLUE_ADJUST = 0.131;
     static const float GREEN_ADJUST = 0.534;
     static const float RED_ADJUST = 0.272;
-    
-    return clip_color((BLUE_ADJUST * pixel.rgbtBlue)
+
+    return clip_color(round((BLUE_ADJUST * pixel.rgbtBlue)
                       + (GREEN_ADJUST * pixel.rgbtGreen)
-                      + (RED_ADJUST * pixel.rgbtRed);
+                      + (RED_ADJUST * pixel.rgbtRed)));
 }
 
-float calculate_sepia_green(RGBTRIPLE pixel) {
+float calculate_sepia_green(RGBTRIPLE pixel)
+{
     static const float BLUE_ADJUST = 0.168;
     static const float GREEN_ADJUST = 0.686;
     static const float RED_ADJUST = 0.349;
-    
-    return clip_color((BLUE_ADJUST * pixel.rgbtBlue)
+
+    return clip_color(round((BLUE_ADJUST * pixel.rgbtBlue)
                       + (GREEN_ADJUST * pixel.rgbtGreen)
-                      + (RED_ADJUST * pixel.rgbtRed);
+                      + (RED_ADJUST * pixel.rgbtRed)));
 }
 
-float calculate_sepia_red(RGBTRIPLE pixel) {
+float calculate_sepia_red(RGBTRIPLE pixel)
+{
     static const float BLUE_ADJUST = 0.189;
     static const float GREEN_ADJUST = 0.769;
     static const float RED_ADJUST = 0.393;
-    
-    return clip_color((BLUE_ADJUST * pixel.rgbtBlue)
+
+    return clip_color(round((BLUE_ADJUST * pixel.rgbtBlue)
                       + (GREEN_ADJUST * pixel.rgbtGreen)
-                      + (RED_ADJUST * pixel.rgbtRed);
+                      + (RED_ADJUST * pixel.rgbtRed)));
 }
 
 RGBTRIPLE calculate_sepia(RGBTRIPLE pixel)
 {
-    return RGBTRIPLE{
-      .rgbtRed=calculate_sepia_red(pixel),
-      .rgbtGreen=calculate_sepia_green(pixel),
-      .rgbtBlue=calculate_sepia_blue(pixel),
-    };
+    RGBTRIPLE sepia_pixel;
+    sepia_pixel.rgbtRed=calculate_sepia_red(pixel);
+    sepia_pixel.rgbtGreen=calculate_sepia_green(pixel);
+    sepia_pixel.rgbtBlue=calculate_sepia_blue(pixel);
+
+    return sepia_pixel;
 }
