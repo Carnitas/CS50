@@ -6,7 +6,7 @@
 // Prototypes
 
 RGBTRIPLE calculate_sepia(RGBTRIPLE pixel);
-uint8_t calculate_grayscale(RGBTRIPLE pixel);
+RGBTRIPLE calculate_grayscale(RGBTRIPLE pixel);
 void copy_image(int height, int width, RGBTRIPLE src[height][width], RGBTRIPLE dest[height][width]);
 
 // Convert image to grayscale
@@ -17,10 +17,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            uint8_t rgbt_avg = calculate_grayscale(image[i][j]);
-            image[i][j].rgbtBlue = rgbt_avg;
-            image[i][j].rgbtGreen = rgbt_avg;
-            image[i][j].rgbtRed = rgbt_avg;
+            image[i][j] = calculate_grayscale(image[i][j]);
         }
     }
 }
@@ -43,19 +40,16 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
-    // Copy image to copy
-    RGBTRIPLE copy[height][width];
-    copy_image(height, width, image, copy);
-    for (int i = 0; i < height; i++)
+    for (int row_num = 0; row_num < height; row_num++)
     {
         // We need to stop half way through or we flip the flipped pixels back
-        for (int j = 0; j < width/2; j++)
+        for (int left_index = 0; left_index < width/2; left_index++)
         {
-            // We subtract one to avoid going out-of-bounds in the swap
-            image[i][j]= copy[i][width - j - 1];
+            const int right_index = width - left_index - 1;
 
-            // Inverse pixel receives the original pixel
-            image[i][width - j - 1] = copy[i][j];
+            const RGBTRIPLE tmp = image[row_num][left_index];
+            image[row_num][left_index] = image[row_num][right_index];
+            image[row_num][right_index] = tmp;
         }
     }
 }
@@ -97,9 +91,9 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
             // Once we've got the average bytes, let's rebuild the image array with those values
-            image[i][j].rgbtBlue = round((rgbt_sum_surrounding_blue / valid_pixel_counter);
-            image[i][j].rgbtGreen = round((rgbt_sum_surrounding_green / valid_pixel_counter);
-            image[i][j].rgbtRed = round((rgbt_sum_surrounding_red / valid_pixel_counter);
+            image[i][j].rgbtBlue = round(rgbt_sum_surrounding_blue / valid_pixel_counter);
+            image[i][j].rgbtGreen = round(rgbt_sum_surrounding_green / valid_pixel_counter);
+            image[i][j].rgbtRed = round(rgbt_sum_surrounding_red / valid_pixel_counter);
         }
     }
 }
@@ -116,11 +110,16 @@ void copy_image(int height, int width, RGBTRIPLE src[height][width], RGBTRIPLE d
     }
 }
 
-uint8_t calculate_grayscale(RGBTRIPLE pixel)
+RGBTRIPLE calculate_grayscale(RGBTRIPLE pixel)
 {
     int rgbt_sum = pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed;
     // +1 to round properly
-    return (rgbt_sum + 1) / 3;
+    int rgbt_avg = (rgbt_sum + 1) / 3;
+    pixel.rgbtBlue = rgbt_avg;
+    pixel.rgbtGreen = rgbt_avg;
+    pixel.rgbtRed = rgbt_avg;
+
+    return pixel;
 }
 
 // sepiaBlue = .272 * originalRed + .534 * originalGreen + .131 * originalBlue
