@@ -13,3 +13,4 @@ lib/
 
 # Ignore image files for filter branch
 *.bmp
+*.jpeg
