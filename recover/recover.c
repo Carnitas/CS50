@@ -1,30 +1,12 @@
-#include <getopt.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-// int main(int argc, char *argv[])
-// {
-
-//     // Open the memory card
-
-//     // While there's still data left to read from the memory card
-
-//     // Create JPEGs from the data
-// }
-
-// Figre out how to print out sequential names in a for-loop, probably outside the while loop
-// Figure out file i/o stuff to write all bytes to a file until the next jpeg signature.
-
-// Variables
-typedef uint8_t BYTE;
 
 // Prototypes
 bool jpg_signature_found(uint8_t buffer[512]);
 FILE* create_jpg_file(int counter);
-
 
 int main(int argc, char *argv[])
 {
@@ -78,10 +60,9 @@ int main(int argc, char *argv[])
     fclose(card);
 }
 
-
 // Helper functions
 
-// Identify possible value clusters to indicate jpeg.
+// Identify signature that starts a jpeg.
 bool jpg_signature_found(uint8_t buffer[512])
 {
     if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] >= 0xe0 && buffer[3] <= 0xef))
