@@ -2,7 +2,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 // Block size for memory card
 const int BLOCK_SIZE = 512;
