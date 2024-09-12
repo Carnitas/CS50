@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // int main(int argc, char *argv[])
 // {
@@ -21,8 +22,8 @@
 typedef uint8_t BYTE;
 
 // Prototypes
-bool possible_image_start(uint8_t buffer[512]);
-FILE create_jpeg_file(int counter);
+bool jpg_signature_found(uint8_t buffer[512]);
+FILE* create_jpg_file(int counter);
 
 
 int main(int argc, char *argv[])
@@ -46,29 +47,30 @@ int main(int argc, char *argv[])
     // Create a buffer to look for jpeg signatures
     uint8_t buffer[512];
     int counter = 0;
+    bool new_jpg_found = false;
     FILE *file = NULL;
 
     while (fread(buffer, sizeof(buffer), 1, card))
     {
-        if (possible_image_start(buffer))
+        if (new_jpg_found)
         {
-            char file_name[9];
-            sprintf(file_name, "%03i.jpg", counter);
-            FILE *file = fopen(file_name, "w");
-            fwrite(buffer, sizeof(buffer), 1, file);
-            while (fread(buffer, sizeof(buffer), 1, card))
+            new_jpg_found = false;
+        }
+
+        if (jpg_signature_found(buffer))
+        {
+            if (file != NULL)
             {
-                if (possible_image_start(buffer) == false)
-                {
-                    fwrite(buffer, sizeof(buffer), 1, file);
-                }
-                else
-                {
-                    break;
-                }
+                fclose(file);
             }
-            fclose(file);
+            file = create_jpg_file(counter);
             counter++;
+            new_jpg_found = true;
+        }
+
+        if (file != NULL)
+        {
+            fwrite(buffer, sizeof(buffer), 1, file);
         }
     }
     fclose(card);
@@ -78,9 +80,9 @@ int main(int argc, char *argv[])
 // Helper functions
 
 // Identify possible value clusters to indicate jpeg.
-bool possible_image_start(uint8_t buffer[512])
+bool jpg_signature_found(uint8_t buffer[512])
 {
-    if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff)
+    if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] >= 0xe0 && buffer[3] <= 0xef))
     {
         return true;
     }
@@ -88,11 +90,11 @@ bool possible_image_start(uint8_t buffer[512])
 }
 
 // Create a file per jpeg
-FILE create_jpeg_file(int counter)
+FILE* create_jpg_file(int counter)
 {
     char file_name[20];
-    sprintf(file_name, "%03i.jpeg", counter);
+    sprintf(file_name, "%03i.jpg", counter);
     FILE *file = fopen(file_name, "w");
+    return file;
     fclose(file);
-    return *file;
 }
