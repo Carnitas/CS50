@@ -1,5 +1,6 @@
 #include <getopt.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -43,22 +44,32 @@ int main(int argc, char *argv[])
     }
 
     // Create a buffer to look for jpeg signatures
-    uint8_t* buffer = malloc(sizeof(BYTE) * 512);
-    int counter = 1;
-    BYTE b;
+    uint8_t buffer[512];
+    int counter = 0;
+    FILE *file = NULL;
 
-    while (fread(buffer, 1, 512, card))
+    while (fread(buffer, sizeof(buffer), 1, card))
     {
         if (possible_image_start(buffer))
         {
-            char file_name[20];
-            sprintf(file_name, "%03i.jpeg", counter);
+            char file_name[9];
+            sprintf(file_name, "%03i.jpg", counter);
             FILE *file = fopen(file_name, "w");
-            fwrite(buffer, 1, 512, file);
+            fwrite(buffer, sizeof(buffer), 1, file);
+            while (fread(buffer, sizeof(buffer), 1, card))
+            {
+                if (possible_image_start(buffer) == false)
+                {
+                    fwrite(buffer, sizeof(buffer), 1, file);
+                }
+                else
+                {
+                    break;
+                }
+            }
             fclose(file);
             counter++;
         }
-
     }
     fclose(card);
 }
