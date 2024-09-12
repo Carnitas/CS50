@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 
     while (fread(buffer, sizeof(buffer), 1, card))
     {
+
         if (new_jpg_found)
         {
             new_jpg_found = false;
