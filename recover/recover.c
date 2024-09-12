@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
             fwrite(buffer, sizeof(buffer), 1, file);
         }
     }
+    fclose(file);
     fclose(card);
 }
 
@@ -96,5 +97,4 @@ FILE* create_jpg_file(int counter)
     sprintf(file_name, "%03i.jpg", counter);
     FILE *file = fopen(file_name, "w");
     return file;
-    fclose(file);
 }
