@@ -2,11 +2,17 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+// Block size for memory card
+const int BLOCK_SIZE = 512;
+
+// Filename length
+const char *FILENAME_FORMAT = "###.jpg";
 
 // Prototypes
-bool jpg_signature_found(uint8_t buffer[512]);
-FILE* create_jpg_file(int counter);
+bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE]);
+FILE *create_jpg_file(int counter);
 
 int main(int argc, char *argv[])
 {
@@ -27,13 +33,15 @@ int main(int argc, char *argv[])
     }
 
     // Create a buffer to look for jpeg signatures
-    uint8_t buffer[512];
+    uint8_t buffer[BLOCK_SIZE];
     int counter = 0;
-    bool new_jpg_found = false;
+
     FILE *file = NULL;
 
-    while (fread(buffer, sizeof(buffer), 1, card))
+    while (fread(buffer, 1, BLOCK_SIZE, card))
     {
+        // Initialize boolean for flag when we find a new image
+        bool new_jpg_found = false;
 
         if (new_jpg_found)
         {
@@ -53,7 +61,7 @@ int main(int argc, char *argv[])
 
         if (file != NULL)
         {
-            fwrite(buffer, sizeof(buffer), 1, file);
+            fwrite(buffer, 1, BLOCK_SIZE, file);
         }
     }
     fclose(file);
@@ -63,9 +71,10 @@ int main(int argc, char *argv[])
 // Helper functions
 
 // Identify signature that starts a jpeg.
-bool jpg_signature_found(uint8_t buffer[512])
+bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE])
 {
-    if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] >= 0xe0 && buffer[3] <= 0xef))
+    if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff &&
+        (buffer[3] >= 0xe0 && buffer[3] <= 0xef))
     {
         return true;
     }
@@ -73,9 +82,9 @@ bool jpg_signature_found(uint8_t buffer[512])
 }
 
 // Create a file per jpeg
-FILE* create_jpg_file(int counter)
+FILE *create_jpg_file(int counter)
 {
-    char file_name[20];
+    char file_name[strlen(FILENAME_FORMAT)];
     sprintf(file_name, "%03i.jpg", counter);
     FILE *file = fopen(file_name, "w");
     return file;
