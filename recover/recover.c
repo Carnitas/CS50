@@ -36,9 +36,9 @@ int main(int argc, char *argv[])
     uint8_t buffer[BLOCK_SIZE];
     int counter = 0;
 
-    FILE *file = create_jpg_file(0);
+    FILE *file = NULL;
 
-    while (fread(buffer, 1, BLOCK_SIZE, card) == 512)
+    while (fread(buffer, 1, BLOCK_SIZE, card) == BLOCK_SIZE)
     {
         if (jpg_signature_found(buffer))
         {
@@ -49,9 +49,7 @@ int main(int argc, char *argv[])
             file = create_jpg_file(counter);
             counter++;
         }
-
         fwrite(buffer, 1, BLOCK_SIZE, file);
-
     }
     fclose(file);
     fclose(card);
@@ -70,7 +68,7 @@ bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE])
     return false;
 }
 
-// Create a file per jpeg
+// Create a file per jpg
 FILE *create_jpg_file(int counter)
 {
     char file_name[strlen(FILENAME_FORMAT)];
