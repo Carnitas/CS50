@@ -5,10 +5,10 @@
 #include <string.h>
 
 // Block size for memory card
-const int BLOCK_SIZE = 512;
+static const int BLOCK_SIZE = 512;
 
 // Filename length
-const char *FILENAME_FORMAT = "###.jpg";
+static const char *FILENAME_FORMAT = "###.jpg";
 
 // Prototypes
 bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE]);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     uint8_t buffer[BLOCK_SIZE];
     int counter = 0;
 
-    FILE *file = NULL;
+    FILE *file = create_jpg_file(counter);
 
     while (fread(buffer, 1, BLOCK_SIZE, card) == BLOCK_SIZE)
     {
