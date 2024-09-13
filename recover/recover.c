@@ -36,18 +36,10 @@ int main(int argc, char *argv[])
     uint8_t buffer[BLOCK_SIZE];
     int counter = 0;
 
-    FILE *file = NULL;
+    FILE *file = create_jpg_file(0);
 
-    while (fread(buffer, 1, BLOCK_SIZE, card))
+    while (fread(buffer, 1, BLOCK_SIZE, card) == 512)
     {
-        // Initialize boolean for flag when we find a new image
-        bool new_jpg_found = false;
-
-        if (new_jpg_found)
-        {
-            new_jpg_found = false;
-        }
-
         if (jpg_signature_found(buffer))
         {
             if (file != NULL)
@@ -56,13 +48,10 @@ int main(int argc, char *argv[])
             }
             file = create_jpg_file(counter);
             counter++;
-            new_jpg_found = true;
         }
 
-        if (file != NULL)
-        {
-            fwrite(buffer, 1, BLOCK_SIZE, file);
-        }
+        fwrite(buffer, 1, BLOCK_SIZE, file);
+
     }
     fclose(file);
     fclose(card);
