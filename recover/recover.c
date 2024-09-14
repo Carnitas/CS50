@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -42,17 +43,27 @@ int main(int argc, char *argv[])
     {
         if (jpg_signature_found(buffer))
         {
-            if (file != NULL)
+            if (fclose(file) != 0)
             {
-                fclose(file);
+                printf("Unable to close current jpg.\n");
+                return 3;
             }
             file = create_jpg_file(counter);
             counter++;
         }
-        fwrite(buffer, 1, BLOCK_SIZE, file);
+        const int bytes_written = fwrite(buffer, 1, BLOCK_SIZE, file);
+        assert(bytes_written == BLOCK_SIZE);
     }
-    fclose(file);
-    fclose(card);
+    if (fclose(file) != 0)
+    {
+        printf("Unable to close last jpg.\n");
+        return 4;
+    }
+    if (fclose(card) != 0)
+    {
+        printf("Unable to close memory card.\n");
+        return 5;
+    }
 }
 
 // Helper functions
