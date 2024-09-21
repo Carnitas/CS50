@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 // Identify signature that starts a jpeg.
 bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE])
 {
-    static const uint8_t BYTE_3_MASK = 0xe0;
+    static const uint8_t BYTE_3_MASK = 0xf0;
     if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff &&
         (buffer[3] & BYTE_3_MASK) == 0xe0)
     {
