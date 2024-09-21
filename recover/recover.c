@@ -17,6 +17,7 @@ typedef enum {
     ERROR_MISSING_ARGUMENT,
     ERROR_FILE_OPEN,
     ERROR_FILE_CLOSE,
+    ERROR_CARD_CLOSE,
 } ErrorCode;
 
 // Prototypes
@@ -65,13 +66,13 @@ int main(int argc, char *argv[])
     }
     if (fclose(file) != 0)
     {
-        printf("Unable to close last jpg.\n");
+        print_error(ERROR_FILE_CLOSE);
         return ERROR_FILE_CLOSE;
     }
     if (fclose(card) != 0)
     {
-        printf("Unable to close memory card.\n");
-        return ERROR_FILE_CLOSE;
+        print_error(ERROR_CARD_CLOSE);
+        return ERROR_CARD_CLOSE;
     }
 }
 
@@ -111,6 +112,9 @@ void print_error(ErrorCode code)
             break;
         case ERROR_FILE_CLOSE:
             printf("Could not close file.\n");
+            break;
+        case ERROR_CARD_CLOSE:
+            printf("Could not close card.\n");
             break;
         default:
             break;
