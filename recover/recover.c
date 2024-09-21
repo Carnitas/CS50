@@ -15,13 +15,22 @@ static const char *FILENAME_FORMAT = "###.jpg";
 bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE]);
 FILE *create_jpg_file(int counter);
 
+// Error handling
+typedef enum {
+    SUCCESS,
+    ERROR_MISSING_ARGUMENT,
+    ERROR_FILE_OPEN,
+    ERROR_FILE_CLOSE,
+} ErrorCode;
+
+
 int main(int argc, char *argv[])
 {
     // Check for invalid usage
     if (argc != 2)
     {
         printf("Usage: ./recover [filepath]\n");
-        return 1;
+        return ERROR_MISSING_ARGUMENT;
     }
 
     char *infile = argv[1];
@@ -30,7 +39,7 @@ int main(int argc, char *argv[])
     if (card == NULL)
     {
         printf("Could not open %s.\n", infile);
-        return 2;
+        return ERROR_FILE_OPEN;
     }
 
     // Create a buffer to look for jpeg signatures
@@ -46,7 +55,7 @@ int main(int argc, char *argv[])
             if (fclose(file) != 0)
             {
                 printf("Unable to close current jpg.\n");
-                return 3;
+                return ERROR_FILE_CLOSE;
             }
             file = create_jpg_file(counter);
             counter++;
@@ -57,12 +66,12 @@ int main(int argc, char *argv[])
     if (fclose(file) != 0)
     {
         printf("Unable to close last jpg.\n");
-        return 4;
+        return ERROR_FILE_CLOSE;
     }
     if (fclose(card) != 0)
     {
         printf("Unable to close memory card.\n");
-        return 5;
+        return ERROR_FILE_CLOSE;
     }
 }
 
