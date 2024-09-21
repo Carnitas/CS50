@@ -11,10 +11,6 @@ static const int BLOCK_SIZE = 512;
 // Filename length
 static const char *FILENAME_FORMAT = "###.jpg";
 
-// Prototypes
-bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE]);
-FILE *create_jpg_file(int counter);
-
 // Error handling
 typedef enum {
     SUCCESS,
@@ -23,13 +19,17 @@ typedef enum {
     ERROR_FILE_CLOSE,
 } ErrorCode;
 
+// Prototypes
+bool jpg_signature_found(uint8_t buffer[BLOCK_SIZE]);
+FILE *create_jpg_file(int counter);
+void print_error(ErrorCode code);
 
 int main(int argc, char *argv[])
 {
     // Check for invalid usage
     if (argc != 2)
     {
-        printf("Usage: ./recover [filepath]\n");
+        print_error(ERROR_MISSING_ARGUMENT);
         return ERROR_MISSING_ARGUMENT;
     }
 
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
         {
             if (fclose(file) != 0)
             {
-                printf("Unable to close current jpg.\n");
+                print_error(ERROR_FILE_CLOSE);
                 return ERROR_FILE_CLOSE;
             }
             file = create_jpg_file(counter);
@@ -96,4 +96,23 @@ FILE *create_jpg_file(int counter)
     sprintf(file_name, "%03i.jpg", counter);
     FILE *file = fopen(file_name, "w");
     return file;
+}
+
+// Print errors
+void print_error(ErrorCode code)
+{
+    switch (code)
+    {
+        case ERROR_MISSING_ARGUMENT:
+            printf("Usage: ./recover [filepath]\n");
+            break;
+        case ERROR_FILE_OPEN:
+            printf("Could not open file.\n");
+            break;
+        case ERROR_FILE_CLOSE:
+            printf("Could not close file.\n");
+            break;
+        default:
+            break;
+    }
 }
