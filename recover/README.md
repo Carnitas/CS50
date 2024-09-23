@@ -3,9 +3,15 @@
 This program parses the included `card.raw` file to identify the number of
 distinct jpgs found on the card.
 
-This one was weird and my solution to set a flag when we found a new image is a
-product of the CS50 duck, which is fine, I guess. I got stuck on only generating
-25 of the known 50 images for reasons I'm still not sure I understand.
+I experimented with `enum` to avoid arbitrary error codes. There's more that
+this function could do, but it's a start.
+
+I also wanted to affirm that each write operation completed correctly. There are
+edge cases where the program will silently fail, but that'll be for a later
+revision.
+
+Lastly, I learned about bitmasking as a way to identify the first four bits in
+the fourth byte of a jpg file sigature.
 
 ```
 ➜  CS50 git:(recover) ✗ cd recover; cschecker cs50/problems/2024/x/recover; cd ..
