@@ -36,6 +36,7 @@ int main(void)
 }
 
 // Create a new individual with `generations`
+// This portion is covered in the supersectional
 person *create_family(int generations)
 {
     // TODO: Allocate memory for new person
@@ -79,21 +80,32 @@ person *create_family(int generations)
 }
 
 // Free `p` and all ancestors of `p`.
+// This was the only net new code for us in this pset.
 void free_family(person *p)
 {
+    const int PARENTS = 2;
     // TODO: Handle base case
     person *ptr = p;
-    while (ptr != NULL)
+
+    if (ptr == NULL)
     {
-        person *parents = ptr->parents;
-        free(ptr);
-        ptr = parents;
+        return;
     }
 
-    // TODO: Free parents recursively
+    // We assume two parents as a magic number because
+    // the ohter
+    for (int i = 0; i < PARENTS; i++)
+    {
+        person *parent = ptr->parents[i];
+        if (parent != NULL)
+        {
+            free_family(parent);
+        }
+    }
+    free(ptr);
+}
 
     // TODO: Free child
-}
 
 // Print each family member and their alleles.
 void print_family(person *p, int generation)
