@@ -5,7 +5,7 @@ all: build quality
 .PHONY: setup
 setup:
 	mkdir build-gcc
-	CC=gcc-14 CXX=g++-12 cmake -G Ninja -B build-gcc -S .
+	CC=gcc CXX=g++-12 cmake -G Ninja -B build-gcc -S .
 
 	mkdir build-clang
 	CC=clang CXX=clang++ cmake -G Ninja -B build-clang -S .
