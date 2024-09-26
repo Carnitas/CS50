@@ -83,8 +83,10 @@ person *create_family(int generations)
 // This was the only net new code for us in this pset.
 void free_family(person *p)
 {
+    // We assume two parents as alleles contributors
     const int PARENTS = 2;
-    // TODO: Handle base case
+
+    // Base case
     person *ptr = p;
 
     if (ptr == NULL)
@@ -92,8 +94,7 @@ void free_family(person *p)
         return;
     }
 
-    // We assume two parents as a magic number because
-    // the ohter
+    // Free parents individually
     for (int i = 0; i < PARENTS; i++)
     {
         person *parent = ptr->parents[i];
@@ -102,10 +103,10 @@ void free_family(person *p)
             free_family(parent);
         }
     }
+
+    // Free node at the end of the line
     free(ptr);
 }
-
-    // TODO: Free child
 
 // Print each family member and their alleles.
 void print_family(person *p, int generation)
