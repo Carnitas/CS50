@@ -1,7 +1,10 @@
 // Implements a dictionary's functionality
-
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
 
 #include "dictionary.h"
 
@@ -13,15 +16,23 @@ typedef struct node
 } node;
 
 // TODO: Choose number of buckets in hash table
-const unsigned int N = 26;
+const unsigned int N = 100000000;
 
 // Hash table
 node *table[N];
 
+// Dictionary word count
+int dict_word_count = 0;
+
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // TODO
+    int x = 0;
+    x = hash(word);
+    if (table[x] != NULL && (strcasecmp(table[x]->word, word) == 0))
+    {
+        return true;
+    }
     return false;
 }
 
@@ -29,26 +40,52 @@ bool check(const char *word)
 unsigned int hash(const char *word)
 {
     // TODO: Improve this hash function
-    return toupper(word[0]) - 'A';
+    // return toupper(word[0]) - 'A';
+    int ascii_sum = 0;
+    for (int i = 0; i < strlen(word); i++)
+    {
+        ascii_sum += (int)tolower(word[i]);
+    }
+    return ascii_sum;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
-    // TODO
-    return false;
+    FILE *source = fopen(dictionary, "r");
+    char *buffer = malloc(LENGTH + 1);
+
+    while (fscanf(source, "%s", buffer) != EOF)
+    {
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
+        {
+            printf("Cannot allocate memory for word");
+            return false;
+        }
+
+        strcpy(n->word, buffer);
+        n->next = NULL;
+
+        int x = hash(buffer);
+        n->next = table[x];
+        table[x] = n;
+        dict_word_count += 1;
+    }
+    free(buffer);
+    fclose(source);
+    return true;
 }
 
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
-    // TODO
-    return 0;
+    return dict_word_count;
 }
 
 // Unloads dictionary from memory, returning true if successful, else false
 bool unload(void)
 {
-    // TODO
-    return false;
+    free(*table);
+    return true;
 }

@@ -16,3 +16,4 @@ lib/
 *.jpg
 *.txt
 dictionaries/
+*.o

@@ -62,7 +62,7 @@ repos:
       - id: clang-tidy
         name: clang-tidy check
         args:
-          - --version=18.1.8
+          - --version=19.1.0
           - --use-color
 
   - repo: https://github.com/cheshirekow/cmake-format-precommit
