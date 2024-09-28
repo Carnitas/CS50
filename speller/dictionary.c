@@ -40,9 +40,12 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    int word_length = 0;
-    word_length = strlen(word);
-    return word_length;
+    int ascii_sum = 0;
+    for (int i = 0; i < strlen(word); i++)
+    {
+        ascii_sum += (int)tolower(word[i]);
+    }
+    return ascii_sum;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
@@ -91,9 +94,6 @@ bool unload(void)
             free(ptr);
             ptr = next;
         }
-
     }
-
-    // free(*table);
     return true;
 }
