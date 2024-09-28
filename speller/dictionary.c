@@ -15,9 +15,7 @@ typedef struct node
     struct node *next;
 } node;
 
-// Divided the words in the large dictionary by 0.75, then rounded to the nearest
-// greater prime number. Why? No idea.
-const unsigned int N = 190789;
+const unsigned int N = 200007;
 
 // Hash table
 node *table[N];
@@ -28,13 +26,8 @@ int dict_word_count = 0;
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    int x = 0;
-    x = hash(word);
-    if (table[x] != NULL && (strcasecmp(table[x]->word, word) == 0))
-    {
-        return true;
-    }
-    return false;
+    const int x = hash(word) % N;
+    return (table[x] != NULL && strcasecmp(table[x]->word, word) == 0);
 }
 
 // Hashes word to a number
@@ -52,26 +45,20 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     FILE *source = fopen(dictionary, "r");
-    char *buffer = malloc(LENGTH + 1);
+    char buffer[LENGTH + 1];
 
     while (fscanf(source, "%s", buffer) != EOF)
     {
         node *n = malloc(sizeof(node));
-        if (n == NULL)
-        {
-            printf("Cannot allocate memory for word");
-            return false;
-        }
 
         strcpy(n->word, buffer);
         n->next = NULL;
 
-        int x = hash(buffer);
+        const int x = hash(buffer);
         n->next = table[x];
         table[x] = n;
         dict_word_count += 1;
     }
-    free(buffer);
     fclose(source);
     return true;
 }
