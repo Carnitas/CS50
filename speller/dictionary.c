@@ -15,8 +15,9 @@ typedef struct node
     struct node *next;
 } node;
 
-// TODO: Choose number of buckets in hash table
-const unsigned int N = 100000000;
+// Divided the words in the large dictionary by 0.75, then rounded to the nearest
+// greater prime number. Why? No idea.
+const unsigned int N = 190789;
 
 // Hash table
 node *table[N];
