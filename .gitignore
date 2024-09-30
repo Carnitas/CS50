@@ -11,6 +11,10 @@ lib/
 *.DS_Store
 *.dSYM*
 
-# Ignore image files for filter branch
+# Ignore supporting files
 *.bmp
 *.jpg
+*.txt
+dictionaries/
+*.o
+speller/speller
