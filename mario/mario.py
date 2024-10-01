@@ -1,26 +1,23 @@
 from cs50 import get_int
 
-height = get_int("Number of rows: ")
+
+def get_height(prompt):
+    while True:
+        try:
+            height = int(input(prompt))
+            if 2 <= height <= 8:
+                return height
+            else:
+                print("Please select a number between 2 and 8 inclusive.")
+        except ValueError:
+            print("Please select a number between 2 and 8 inclusive.")
 
 
 def main():
-    x = height
-    while x > 0:
-        print_space(x)
-        print_blocks(height - x)
-        x -= 1
-
-
-def print_blocks(blocks):
-    for i in range(blocks + 1):
-        print("#", end="")
-    print("")
-
-
-def print_space(space):
-    while space > 0:
-        print(" ", end="")
-        space -= 1
+    height = get_height("Height? ")
+    for x in range(height, 0, -1):
+        print(" " * x, end="")
+        print("#" * (height - x + 1))
 
 
 main()
