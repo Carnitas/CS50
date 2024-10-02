@@ -56,9 +56,6 @@ int main(void)
     }
 }
 
-// I used an incrementer for coin count outside the function
-// ChatGPT gave me a model where I could just increment in the function
-// which makes more sense because that value won't be referenced outside of main
 void increment_coin(int coin)
 {
     count += coin;
