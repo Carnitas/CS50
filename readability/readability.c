@@ -20,11 +20,6 @@ int main(void)
     float word_count = count_single_words(text);
     float sentence_count = count_sentences(text);
 
-    // Kept these to track how I printed characters
-    // printf("Total letters: %f\n", letter_count);
-    // printf("Total words: %f\n", word_count);
-    // printf("Total sentences: %f\n", sentence_count);
-
     const float L = letter_count/word_count * 100;
     const float S = sentence_count/word_count * 100;
 
@@ -65,31 +60,18 @@ float count_single_words(string text)
     // The index stuff was for printing individual words so that I could count
     // from the space to the next space.
 
-    // int starting_index = 0;
     float word_count = 0.0;
     for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
 
         if (isspace(text[i]))
         {
-            // Just for printing out the words. Only really need the count.
-            // for (int j = starting_index; j < i; j++)
-            // {
-            //     printf("%c", text[j]);
-            // }
-            // printf("\n");
-            // starting_index = i + 1;
             word_count++;
         }
     }
     // Since I'm just counting up to spaces, needed to catch the last word.
     if (strrchr(text, '.'))
     {
-        // More print debugging.
-        // for (int i = starting_index, n = strlen(text); i < n; i++)
-        // {
-        //     printf("%c", text[i]);
-        // }
         word_count++;
     }
     return word_count;
@@ -98,20 +80,12 @@ float count_single_words(string text)
 float count_sentences(string text)
 {
     // Same as above, promote the starting index to one after a period character.
-    // int starting_index = 0;
     float sentence_count = 0.0;
     for (int i = 0, n = (int) strlen(text); i < n; i++)
     {
         // Check the ways a sentence can end in English syntax.
         if (strchr(".!?", text[i]))
         {
-            // print debugging
-            // for (int j = starting_index; j < i; j++)
-            // {
-            //     printf("%c", text[j]);
-            // }
-            // printf("\n");
-            // starting_index = i + 1;
             sentence_count++;
         }
     }
