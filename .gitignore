@@ -15,6 +15,7 @@ lib/
 *.bmp
 *.jpg
 *.txt
+*.csv
 dictionaries/
 *.o
 speller/speller
