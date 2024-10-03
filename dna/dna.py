@@ -8,30 +8,22 @@ def main():
         print("Please select a database and available text file")
         sys.exit(1)
 
-    field_names = []
-    rows = []
     with open(sys.argv[1]) as file:
         reader = csv.DictReader(file)
         field_names = reader.fieldnames
-        for row in reader:
-            rows.append(row)
+        rows = [row for row in reader]
 
-    sequence = ""
     with open(sys.argv[2]) as file:
         sequence = file.read()
 
-    # TODO: Find longest match of each STR in DNA sequence
     matches = {i: longest_match(sequence, i) for i in field_names[1:]}
 
-    # TODO: Check database for matching profiles
     for row in rows:
-        for key, value in matches.items():
-            if key not in row and value != int(row[key]):
-                break
-        else:
+        if all(matches[key] == int(row[key]) for key in matches):
             print(row["name"])
-
-    return
+            return
+    else:
+        print("No match")
 
 
 def longest_match(sequence, subsequence):
