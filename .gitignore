@@ -20,3 +20,7 @@ dictionaries/
 *.o
 speller/speller
 *.db
+
+# Ignore all Fiftyville stuff
+Fiftyville/answers.txt
+Fiftyville/log.sql
