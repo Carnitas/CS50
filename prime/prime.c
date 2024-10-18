@@ -30,11 +30,22 @@ int main(void)
 
 bool prime(int number)
 {
-    // We'll throw out 1 and all even numbers, then we only need to
-    // check for 3-9 for
+    const int small_primes[] = {2, 3, 5, 7};
+    const int array_size = sizeof(small_primes) / sizeof(small_primes[0]);
+    if (number == 1)
+    {
+        return false;
+    }
+    for (int i = 0; i < sizeof(array_size); i++)
+    {
+        if (number == small_primes[i])
+        {
+            return true;
+        }
+    }
     for (int i = 3; i < 10; i++)
     {
-        if ((number % 2) == 0 || (number % i == 0))
+        if ((number % 2) == 0 || number % i == 0)
         {
             return false;
         }
