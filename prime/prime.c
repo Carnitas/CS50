@@ -32,10 +32,6 @@ bool prime(int number)
 {
     const int small_primes[] = {2, 3, 5, 7};
     const int array_size = sizeof(small_primes) / sizeof(small_primes[0]);
-    if (number == 1)
-    {
-        return false;
-    }
     for (int i = 0; i < sizeof(array_size); i++)
     {
         if (number == small_primes[i])
@@ -43,9 +39,13 @@ bool prime(int number)
             return true;
         }
     }
+    if (number == 1 || number % 2 == 0)
+    {
+        return false;
+    }
     for (int i = 3; i < 10; i++)
     {
-        if ((number % 2) == 0 || number % i == 0)
+        if (number % i == 0)
         {
             return false;
         }
