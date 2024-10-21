@@ -40,13 +40,9 @@ void replace(char* word)
     const int map_size = sizeof(map) / sizeof(map[0]);
     for (int i = 0; word[i] != '\0'; i++)
     {
-       for (int j = 0; j < map_size; j++)
-        {
-            if (word[i] == map[j].letter)
-            {
-                word[i] = map[j].symbol;
-            }
-        }
+       if (map.contains(word[i])) {
+          word[i] = map[word[i]].symbol;
+       }
     }
     printf("%s", word);
 }
