@@ -25,7 +25,6 @@ int main(void)
 
 int convert(string input)
 {
-
     if (strlen(input) == 0)
     {
         return 0;
