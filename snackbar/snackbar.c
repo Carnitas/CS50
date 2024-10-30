@@ -73,11 +73,31 @@ int main(void)
 // Add at least the first four items to the menu array
 void add_items(void)
 {
-    return;
+    menu[0].item = "Burger";
+    menu[0].price = 9.5;
+
+    menu[1].item = "Hot Dog";
+    menu[1].price = 5;
+
+    menu[2].item = "Fries";
+    menu[2].price = 5;
+
+    menu[3].item = "Cold Brew";
+    menu[3].price = 3;
+
+    menu[4].item = "Water";
+    menu[4].price = 2;
 }
 
 // Search through the menu array to find an item's cost
 float get_cost(string item)
 {
-    return 0.0;
+    for (int i = 0; i < NUM_ITEMS; i++)
+    {
+        if (strcasecmp(item, menu[i].item) == 0)
+        {
+            return menu[i].price;
+        }
+    }
+    return 0;
 }
