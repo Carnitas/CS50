@@ -7,23 +7,8 @@
 #include <stdio.h>
 
 // Prototype
-void replace(char*);
-
-typedef struct {
-    char letter;
-    char symbol;
-} leet_map;
-
-leet_map map[8] = {
-    {'A', '6'},
-    {'a', '6'},
-    {'E', '3'},
-    {'e', '3'},
-    {'I', '1'},
-    {'i', '1'},
-    {'O', '0'},
-    {'o', '0'},
-};
+void replace(char* word);
+void replace_char_if_necessary(char* character);
 
 int main(int argc, string argv[])
 {
@@ -37,12 +22,32 @@ int main(int argc, string argv[])
 
 void replace(char* word)
 {
-    const int map_size = sizeof(map) / sizeof(map[0]);
-    for (int i = 0; word[i] != '\0'; i++)
-    {
-       if (map.contains(word[i])) {
-          word[i] = map[word[i]].symbol;
-       }
-    }
-    printf("%s", word);
+  for (int i = 0; word[i] != '\0'; i++)
+  {
+    replace_char_if_necessary(&word[i]);
+  }
+  printf("%s\n", word);
+}
+
+
+void replace_char_if_necessary(char* character)
+{
+  switch (*character) {
+    case 'a':
+    case 'A':
+      *character = '6';
+      break;
+    case 'e':
+    case 'E':
+      *character = '3';
+      break;
+    case 'i':
+    case 'I':
+      *character = '1';
+      break;
+    case 'o':
+    case 'O':
+      *character = '0';
+      break;
+  }
 }
