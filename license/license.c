@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char *argv[])
 {
@@ -19,13 +21,16 @@ int main(int argc, char *argv[])
 
     int idx = 0;
 
+    char *p = NULL;
+
     while (fread(buffer, 1, 7, infile) == 7)
     {
+        p = malloc(sizeof(plates));
         // Replace '\n' with '\0'
         buffer[6] = '\0';
 
         // Save plate number in array
-        plates[idx] = buffer;
+        plates[idx] = strcpy(p, buffer);
         idx++;
     }
 
@@ -33,4 +38,9 @@ int main(int argc, char *argv[])
     {
         printf("%s\n", plates[i]);
     }
+    for (int i = 0; i <7; i++)
+    {
+        free(plates[i]);
+    }
+    fclose(infile);
 }
